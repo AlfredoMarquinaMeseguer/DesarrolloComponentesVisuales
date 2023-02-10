@@ -71,6 +71,7 @@ public class ShapeLed extends Region implements Serializable{
     private InnerShadow           ledOffShadow;
     private LinearGradient        frameGradient;
     private LinearGradient        ledOnGradient;
+    private LinearGradient        hoverGradient;
     private LinearGradient        ledOffGradient;
     private RadialGradient        highlightGradient;
     private long                  lastTimerCall;
@@ -133,14 +134,14 @@ this.setBorderColor(BORDER_DEFAULT);
         // Click on control toggles the blinking property
         setOnMouseClicked((MouseEvent evt) -> setBlinking(!isBlinking()));
         // Hovering over control changes its color
-        setOnMouseEntered((MouseEvent evt)->{
+        setOnMouseEntered((MouseEvent evt) -> {
             // Save the current color to load it on exit
             previousColor = getLedColor(); 
             // Set the LED color to a random one
             setLedColor(ShapeLed.randomColor());
         });
         // No hovering over control returns to its original color
-        setOnMouseExited((MouseEvent evt)->setLedColor(previousColor));
+        setOnMouseExited((MouseEvent evt) -> setLedColor(previousColor));
         // Beginnig edited code       
     }
 
@@ -318,11 +319,18 @@ this.setBorderColor(BORDER_DEFAULT);
     // ******************** Resize/Redraw *************************************
     //// Edited Method
     private void recalc() {
-        double size;
-        if (getWidth() < getHeight()) {
-            size = getWidth(); 
-        } else {
-            size = getHeight();
+        double size, offsetWidth, offsetHeight;
+        double wsize = getWidth();
+       
+        
+         if(getWidth() < getHeight()){
+            size = getWidth();
+            offsetWidth = 0;
+            offsetHeight = (getHeight()-getWidth())/2;            
+        }else{
+            size = getHeight() ;
+            offsetWidth = (getWidth()-getHeight())/2;
+            offsetHeight = 0;
         }
         //Nie mój cyrk, nie moje małpy
         ledOffShadow = new InnerShadow(BlurType.TWO_PASS_BOX, Color.rgb(0, 0, 0, 0.65), 0.07 * size, 0, 0, 0);
@@ -340,6 +348,12 @@ this.setBorderColor(BORDER_DEFAULT);
                                                         0.2D)),
                                         new Stop(1.0, borderColor.get()));
         // End edited code
+                hoverGradient = new LinearGradient(0.25 * size, 0.25 * size,
+                                           0.74 * size, 0.74 * size,
+                                           false, CycleMethod.NO_CYCLE,
+                                           new Stop(0.0, ledColor.get().deriveColor(0d, 1d, 0.77, 1d)),
+                                           new Stop(0.49, ledColor.get().deriveColor(0d, 1d, 0.5, 1d)),
+                                           new Stop(1.0, ledColor.get()));
         
         ledOnGradient = new LinearGradient(0.25 * size, 0.25 * size,
                                            0.74 * size, 0.74 * size,
@@ -356,7 +370,8 @@ this.setBorderColor(BORDER_DEFAULT);
                                             new Stop(1.0, ledColor.get().deriveColor(0d, 1d, 0.2, 1d)));
 
         highlightGradient = new RadialGradient(0, 0,
-                                               0.3 * size, 0.3 * size,
+                                               (0.3 * size)+offsetWidth, 
+                                               (0.3 * size)+offsetHeight,
                                                0.29 * size,
                                                false, CycleMethod.NO_CYCLE,
                                                new Stop(0.0, Color.WHITE),
@@ -386,12 +401,12 @@ this.setBorderColor(BORDER_DEFAULT);
             offsetHeight = 0;
         }
         double sideLed = 0.72 * sideFrame;
-        double sideReflection = 0.58 * sideFrame;
+        double sideReflex = 0.58 * sideFrame;
         
         double offsetFrameToLed = squareOffset(sideFrame, 
                                                sideLed);
-        double offsetFrameToReflection = squareOffset(sideFrame, 
-                                                    sideReflection);
+        double offsetFrameToReflex = squareOffset(sideFrame, 
+                                                    sideReflex);
         
         // Limpia la región y comienza a dibujar de nuevo
         getChildren().clear();
@@ -418,10 +433,10 @@ this.setBorderColor(BORDER_DEFAULT);
          getChildren().add(led);
          
         
-        var reflex = new Rectangle(offsetFrameToReflection+offsetWidth, 
-                                  offsetFrameToReflection+offsetHeight, 
-                                  sideReflection, 
-                                  sideReflection);
+        var reflex = new Rectangle(offsetFrameToReflex+offsetWidth, 
+                                  offsetFrameToReflex+offsetHeight, 
+                                  sideReflex, 
+                                  sideReflex);
         // End edited code
         reflex.setFill(highlightGradient);
         getChildren().add(reflex);

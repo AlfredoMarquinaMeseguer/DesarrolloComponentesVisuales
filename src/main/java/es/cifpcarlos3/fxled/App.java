@@ -15,44 +15,31 @@
  */
 package es.cifpcarlos3.fxled;
 
+import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 public class App extends Application {
-    private static final int LED_SIZE = 200;
-    private static int noOfNodes = 0;
-    private boolean estabaFuera;
-    private Logger logger;
-
-    
-    @Override public void start(Stage stage) {
-        var control = new ShapeLed();
-        estabaFuera = true;
-        control.setPrefWidth(LED_SIZE);
-        control.setPrefHeight(LED_SIZE);
-        
-        StackPane pane = new StackPane();
-        pane.getChildren().setAll(control);
-        
-       
-        
+    private Scene scene;
       
-        
-        
-        Scene scene = new Scene(pane);
-
-        stage.setTitle("JavaFX Led Canvas");
+    @Override public void start(Stage stage) throws IOException {        
+       
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(
+                "LedInterface.fxml"));
+        scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Interfaz LED");
+        stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
-
-        control.setBlinking(true);
     }
 
     public static void main(String[] args) {

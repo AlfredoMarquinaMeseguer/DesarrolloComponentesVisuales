@@ -11,9 +11,10 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LedInterfaceController">
    <center>
       <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
          <columnConstraints>
@@ -48,7 +49,10 @@
                         </ImageView>
                      </graphic>
                   </ToggleButton>
-                  <ColorPicker fx:id="cpBorder" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <ColorPicker fx:id="cpBorder" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <value>
+                        <Color red="0.501960813999176" green="0.501960813999176" blue="0.501960813999176" />
+                     </value></ColorPicker>
                   <Label fx:id="lBorderColor" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Color Borde" textAlignment="RIGHT" wrapText="true" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="24.0" />
@@ -57,7 +61,10 @@
                         <Insets right="15.0" />
                      </padding>
                   </Label>
-                  <ColorPicker fx:id="cpLed" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                  <ColorPicker fx:id="cpLed" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <value>
+                        <Color red="1.0" />
+                     </value></ColorPicker>
                   <Label fx:id="lLedColor" alignment="CENTER_RIGHT" blendMode="SRC_ATOP" cache="true" contentDisplay="RIGHT" depthTest="ENABLE" text="Color LED" textAlignment="RIGHT" wrapText="true" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="24.0" />

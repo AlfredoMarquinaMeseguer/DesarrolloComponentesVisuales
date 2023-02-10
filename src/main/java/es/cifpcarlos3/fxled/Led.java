@@ -313,7 +313,6 @@ public class Led extends Region {
             ctx.fillOval(0.14 * size, 0.14 * size, 0.72 * size, 0.72 * size);
             ctx.restore();
         }
-        
         ctx.setFill(highlightGradient);
         ctx.fillOval(0.21 * size, 0.21 * size, 0.58 * size, 0.58 * size);        
     }
