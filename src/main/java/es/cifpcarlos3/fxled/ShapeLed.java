@@ -430,8 +430,7 @@ this.setBorderColor(BORDER_DEFAULT);
             led.setEffect(ledOffShadow);
             led.setFill(ledOffGradient);
         }
-         getChildren().add(led);
-         
+        getChildren().add(led);
         
         var reflex = new Rectangle(offsetFrameToReflex+offsetWidth, 
                                   offsetFrameToReflex+offsetHeight, 
